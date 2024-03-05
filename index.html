@@ -261,7 +261,8 @@
 
         const formSaldo = document.getElementById("formSaldo");
          
-        const saldoAtualizadoObj = await contract.balanceOf(formSaldo.formTo.value);
+        const saldoAtualizadoObj = await contract.balanceOf(networkAccount.innerHTML);
+        
         const saldoAtualizado = document.getElementById("formSaldoAtualizado");
         saldoAtualizado.value = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
