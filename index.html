@@ -224,7 +224,7 @@
         const form = document.getElementById("formSaldo");
         alert("Aguarde a consulta ser processada pelo Provedor");
         const saldo = await contract.balanceOf(form.formTo.value);
-        form.formAmount.value = saldo;
+        form.formAmount.value = saldo; 
       }
 
       async function mintar() {
