@@ -169,10 +169,7 @@
         const tokenTotalSupply = document.getElementById("tokenTotalSupply");
         tokenTotalSupply.innerHTML = tokenTotalSupplyObj;
 
-        //Aqui vou inserir o código para mostrar o proprietário atual - Felipe
-        const contratcOwnerObj = await contract.getOwner();
-        const contratcOwner = document.getElementById("formOwner");
-        contratcOwner.innerHTML = contratcOwnerObj;
+        
 
         //eventos
         const filtroEvento = contract.filters.Transfer;
@@ -203,6 +200,11 @@
         alert("Aguarde a consulta ser processada pelo Provedor");
         const saldo = await contract.balanceOf(form.formTo.value);
         form.formAmount.value = saldo;
+
+        //Aqui vou inserir o código para mostrar o proprietário atual - Felipe
+        const contratcOwnerObj = await contract.getOwner();
+        const contratcOwner = document.getElementById("formOwner");
+        contratcOwner.innerHTML = contratcOwnerObj;
       }
 
       async function mintar() {
