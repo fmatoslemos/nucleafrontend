@@ -88,7 +88,7 @@
         <section>
           <h2>Transferência</h2>
           <div>
-            <form action="" name="formTransferencia" id="formTransferencia" method="get">              
+            <form action="" name="formTransferencia" id="formTransferencia" method="get"> 
               <label for="formEnderecoDestino">Endereço da destino:</label>
               <br /><br />
               <input
@@ -225,6 +225,9 @@
         alert("Aguarde a consulta ser processada pelo Provedor");
         const saldo = await contract.balanceOf(form.formTo.value);
         form.formAmount.value = saldo;
+
+        const formTransferencia = document.getElementById("formTransferencia");
+        formTransferencia.formSaldoAtual.value = saldo;
       }
 
       async function mintar() {
@@ -259,7 +262,7 @@
         console.log("txReceipt: ", txReceipt);
         if (txReceipt.status === 1) {
          
-        const saldoAtualizadoObj = await contract.balanceOf(form.formQuantidadeTransferencia.value);
+        const saldoAtualizadoObj = await contract.balanceOf(form.formTo.value);
         const saldoAtualizado = document.getElementById("formSaldoAtualizado");
         saldoAtualizado.innerHTML = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
