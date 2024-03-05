@@ -261,8 +261,10 @@
         const txReceipt = await tx.wait();
         console.log("txReceipt: ", txReceipt);
         if (txReceipt.status === 1) {
+
+        const formSaldo = document.getElementById("formSaldo");
          
-        const saldoAtualizadoObj = await contract.balanceOf(form.formTo.value);
+        const saldoAtualizadoObj = await contract.balanceOf(formSaldo.formTo.value);
         const saldoAtualizado = document.getElementById("formSaldoAtualizado");
         saldoAtualizado.innerHTML = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
