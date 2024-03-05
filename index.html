@@ -63,6 +63,7 @@
               <br /><br />
               <input type="text"  name="formNewOwner" id="formNewOwner" />
               <br /><br />
+              <input type="button" value="Obter Proprietário Atual!" onclick="obterOwner()" />
               <input type="button" value="Mudar Proprietário!" onclick="mudarProprietario()" />
               
               <input type="button" value="Consultar" onclick="consultar()" />
@@ -200,6 +201,15 @@
         alert("Aguarde a consulta ser processada pelo Provedor");
         const saldo = await contract.balanceOf(form.formTo.value);
         form.formAmount.value = saldo;
+
+        //Aqui vou inserir o código para mostrar o proprietário atual - Felipe
+        const contratcOwnerObj = await contract.getOwner();
+        const contratcOwner = document.getElementById("formOwner");
+        contratcOwner.innerHTML = contratcOwnerObj;
+      }
+
+      async function obterOwner() {
+        event.preventDefault();
 
         //Aqui vou inserir o código para mostrar o proprietário atual - Felipe
         const contratcOwnerObj = await contract.getOwner();
