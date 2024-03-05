@@ -52,11 +52,19 @@
               <input type="number" disabled name="formAmount" id="formAmount" />
               <br /><br />
 
+
               <br /><br />
-              <label for="formNewRating">Novo Rating:</label>
+              <label for="formOwner">Proprietário Atual:</label>
               <br /><br />
-              <input type="text" disabled name="formNewRating" id="formNewRating" />
+              <input type="text" disabled name="formOwner" id="formOwner" />
               <br /><br />
+              
+              <br /><br />
+              <label for="formNewOwner">Novo Proprietário:</label>
+              <br /><br />
+              <input type="text" disabled name="formNewOwner" id="formNewOwner" />
+              <br /><br />
+              <input type="button" value="Mudar Proprietário!" onclick="mudarProprietario()" />
 
               
               <input type="button" value="Consultar" onclick="consultar()" />
@@ -111,6 +119,11 @@
         const tokenTotalSupplyObj = await contract.totalSupply();
         const tokenTotalSupply = document.getElementById("tokenTotalSupply");
         tokenTotalSupply.innerHTML = tokenTotalSupplyObj;
+
+        //Aqui vou inserir o código para mostrar o proprietário atual
+        const contratcOwnerObj = await contract.getOwner();
+        const contratcOwner = document.getElementById("formOwner");
+        contratcOwner.innerHTML = contratcOwnerObj;
       }
     </script>
     <script>
@@ -129,6 +142,13 @@
       let ABIHelper;
       const contractAddress = "0x89A2E711b2246B586E51f579676BE2381441A0d0";
       init();
+    </script>
+
+    <script>
+      async function mudarProprietario() {
+        //TODO
+        alert('TODO código para mudar proprietário!');
+      }
     </script>
   </body>
 </html>
