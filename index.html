@@ -263,7 +263,7 @@
          
         const saldoAtualizadoObj = await contract.balanceOf(formSaldo.formTo.value);
         const saldoAtualizado = document.getElementById("formSaldoAtualizado");
-        saldoAtualizado.innerHTML = saldoAtualizadoObj;
+        saldoAtualizado.value = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
           btn.value = "Transferir";
         }
