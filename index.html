@@ -92,6 +92,57 @@
         </section>
         <hr />
         <section>
+          <h2>Transferência</h2>
+          <div>
+            <form action="" name="formTransferencia" id="formTransferencia" method="get">
+              <label for="formEnderecoOrigem">Endereço da origem:</label>
+              <br /><br />
+              <input
+                type="text"
+                required
+                name="formEnderecoOrigem"
+                id="formEnderecoOrigem"
+                size="100"
+                maxlength="45"
+                style="width: 500px"
+              />
+              <br /><br />
+              
+              <label for="formEnderecoDestino">Endereço da destino:</label>
+              <br /><br />
+              <input
+                type="text"
+                required
+                name="formEnderecoDestino"
+                id="formEnderecoDestino"
+                size="100"
+                maxlength="45"
+                style="width: 500px"
+              />
+              <br /><br />
+              
+              <label for="formQuantidadeTransferencia">Quantidade:</label>
+              <br /><br />
+              <input type="number" placeholder="10000" required name="formQuantidadeTransferencia" id="formQuantidadeTransferencia" />
+              <br /><br />
+              <input id="btnTransferir" type="button" value="Transferir" onclick="transferir()" />
+              <br /><br />
+              <label for="Saldo Atualizado">Conta Após transferência:</label>
+              <br /><br />
+              <input
+                type="text"
+                required
+                name="formSaldoAtualizado"
+                id="formSaldoAtualizado"
+                size="100"
+                maxlength="45"
+                style="width: 500px"
+              />
+            </form>
+          </div>
+        </section>
+        <hr/>
+        <section>
           <h2>Rede e Infra</h2>
           <h3>Conta selectionada: <span id="networkAccount">&nbsp;</span></h3>
           <h3>Rede selecionada: <span id="networkNetworkID">&nbsp;</span></h3>
@@ -162,9 +213,7 @@
         const tokenTotalSupply = document.getElementById("tokenTotalSupply");
         tokenTotalSupply.innerHTML = tokenTotalSupplyObj;
 
-        const contractOwnerObj = await contract.getOwner();
-        const contractOwner = document.getElementById("formOwner");
-        contractOwner.innerHTML = contractOwnerObj;
+        
 
         //eventos
         const filtroEvento = contract.filters.Transfer;
@@ -213,6 +262,26 @@
           alert("Parabéns! Mais tokens gerados.");
           btn.value = "Mintar (gerar) Token";
           form.reset();
+        }
+      }
+      
+      async function transferir() {
+        event.preventDefault();
+        const btn = document.getElementById("btnTransferir");
+        btn.value = "Processando...";
+        alert("Aguarde e confirme a transação no Metamask");
+        const form = document.getElementById("formTransferencia");
+        const tx = await contract.transferFrom(form.formEnderecoOrigem.value, form.formEnderecoDestino.value, form.formQuantidadeTransferencia.value);
+        console.log("tx enviada: ", tx);
+        alert("Transação enviada a Blockchain. Aguarde.\nID: " + tx.hash);
+        const txReceipt = await tx.wait();
+        console.log("txReceipt: ", txReceipt);
+        if (txReceipt.status === 1) {
+         
+        const saldoAtualizadoObj = await contract.balanceOf(form.formEnderecoOrigem.value);
+        const saldoAtualizado = document.getElementById("formSaldoAtualizado");
+        saldoAtualizado.innerHTML = saldoAtualizadoObj;
+          alert("Parabéns! A transferência foi um sucesso!");
         }
       }
       let signer = null;
