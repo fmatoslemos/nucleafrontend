@@ -94,20 +94,7 @@
         <section>
           <h2>Transferência</h2>
           <div>
-            <form action="" name="formTransferencia" id="formTransferencia" method="get">
-              <label for="formEnderecoOrigem">Endereço da origem:</label>
-              <br /><br />
-              <input
-                type="text"
-                required
-                name="formEnderecoOrigem"
-                id="formEnderecoOrigem"
-                size="100"
-                maxlength="45"
-                style="width: 500px"
-              />
-              <br /><br />
-              
+            <form action="" name="formTransferencia" id="formTransferencia" method="get">              
               <label for="formEnderecoDestino">Endereço da destino:</label>
               <br /><br />
               <input
@@ -271,7 +258,7 @@
         btn.value = "Processando...";
         alert("Aguarde e confirme a transação no Metamask");
         const form = document.getElementById("formTransferencia");
-        const tx = await contract.transferFrom(form.formEnderecoOrigem.value, form.formEnderecoDestino.value, form.formQuantidadeTransferencia.value);
+        const tx = await contract.transfer(form.formEnderecoDestino.value, form.formQuantidadeTransferencia.value);
         console.log("tx enviada: ", tx);
         alert("Transação enviada a Blockchain. Aguarde.\nID: " + tx.hash);
         const txReceipt = await tx.wait();
@@ -282,6 +269,7 @@
         const saldoAtualizado = document.getElementById("formSaldoAtualizado");
         saldoAtualizado.innerHTML = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
+          btn.value = "Transferir";
         }
       }
       let signer = null;
