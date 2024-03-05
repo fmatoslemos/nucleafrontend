@@ -89,6 +89,19 @@
           <h2>Transferência</h2>
           <div>
             <form action="" name="formTransferencia" id="formTransferencia" method="get"> 
+              <label for="formSaldoAtualizado">Saldo Atualizado:</label>
+              <br /><br />
+              <input
+                type="text"
+                disabled
+                name="formSaldoAtualizado"
+                id="formSaldoAtualizado"
+                size="100"
+                maxlength="45"
+                style="width: 500px"
+              />
+              <br /><br />
+
               <label for="formEnderecoDestino">Endereço da destino:</label>
               <br /><br />
               <input
@@ -108,17 +121,7 @@
               <br /><br />
               <input id="btnTransferir" type="button" value="Transferir" onclick="transferir()" />
               <br /><br />
-              <label for="formSaldoAtualizado">Saldo Atualizado:</label>
-              <br /><br />
-              <input
-                type="text"
-                disabled
-                name="formSaldoAtualizado"
-                id="formSaldoAtualizado"
-                size="100"
-                maxlength="45"
-                style="width: 500px"
-              />
+              
             </form>
           </div>
         </section>
@@ -171,6 +174,11 @@
           console.log("contract: ", contract);
           const networkAccount = document.getElementById("networkAccount");
           networkAccount.innerHTML = signer.address;
+
+          //Já deixa o saldo atual disponivel no setor de transferencia         
+          const saldoAtualizadoObj = await contract.balanceOf(signer.address);         
+          const saldoAtualizado = document.getElementById("formSaldoAtualizado");
+          saldoAtualizado.value = saldoAtualizadoObj;
         }
 
         ABIHelper = new ethers.Interface(abi);
@@ -258,13 +266,9 @@
         const txReceipt = await tx.wait();
         console.log("txReceipt: ", txReceipt);
         if (txReceipt.status === 1) {
-
-        const formSaldo = document.getElementById("formSaldo");
-         
-        const saldoAtualizadoObj = await contract.balanceOf(networkAccount.innerHTML);
-        
-        const saldoAtualizado = document.getElementById("formSaldoAtualizado");
-        saldoAtualizado.value = saldoAtualizadoObj;
+          const saldoAtualizadoObj = await contract.balanceOf(networkAccount.innerHTML);
+          const saldoAtualizado = document.getElementById("formSaldoAtualizado");
+          saldoAtualizado.value = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
           btn.value = "Transferir";
         }
