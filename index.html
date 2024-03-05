@@ -52,12 +52,6 @@
               <input type="number" disabled name="formAmount" id="formAmount" />
               <br /><br />
 
-              <br /><br />
-              <label for="formOwner">Owner:</label>
-              <br /><br />
-              <input type="text" readonly name="formOwner" id="formOwner" />
-              <br /><br />
-
               <input type="button" value="Consultar" onclick="consultar()" />
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <input type="reset" value="Limpar" />
@@ -69,7 +63,7 @@
           <h2>Novo Token</h2>
           <div>
             <form action="" name="formMint" id="formMint" method="get">
-              <label for="formTo">Endereço da destinatário:</label>
+              <label for="formTo">Endereço do destinatário:</label>
               <br /><br />
               <input
                 type="text"
@@ -265,7 +259,7 @@
         console.log("txReceipt: ", txReceipt);
         if (txReceipt.status === 1) {
          
-        const saldoAtualizadoObj = await contract.balanceOf(form.formEnderecoOrigem.value);
+        const saldoAtualizadoObj = await contract.balanceOf(form.formQuantidadeTransferencia.value);
         const saldoAtualizado = document.getElementById("formSaldoAtualizado");
         saldoAtualizado.innerHTML = saldoAtualizadoObj;
           alert("Parabéns! A transferência foi um sucesso!");
