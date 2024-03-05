@@ -225,9 +225,6 @@
         alert("Aguarde a consulta ser processada pelo Provedor");
         const saldo = await contract.balanceOf(form.formTo.value);
         form.formAmount.value = saldo;
-
-        const formTransferencia = document.getElementById("formTransferencia");
-        formTransferencia.formSaldoAtual.value = saldo;
       }
 
       async function mintar() {
